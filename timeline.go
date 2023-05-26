@@ -1,6 +1,7 @@
 package twitterscraper
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -228,6 +229,10 @@ func (timeline *timeline) parseTweet(id string) *Tweet {
 			})
 		}
 
+		s, err := json.MarshalIndent(tweet.ExtendedEntities.Media, "", "\t")
+		if err == nil {
+			fmt.Println(string(s))
+		}
 		for _, media := range tweet.ExtendedEntities.Media {
 			if media.Type == "photo" {
 				photo := Photo{
