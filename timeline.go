@@ -229,7 +229,7 @@ func (timeline *timeline) parseTweet(id string) *Tweet {
 		}
 
 		for _, media := range tweet.ExtendedEntities.Media {
-			if media.Type == "photo" || media.Type == "gif" {
+			if media.Type == "photo" || media.Type == "animated_gif" {
 				photo := Photo{
 					ID:  media.IDStr,
 					URL: media.MediaURLHttps,
