@@ -244,8 +244,6 @@ func (timeline *timeline) parseTweet(id string) *Tweet {
 						URL:     media.VideoInfo.Variants[0].URL,
 					}
 
-					fmt.Println("animated_gif", video.URL)
-
 					tw.Videos = append(tw.Videos, video)
 				}
 			} else if media.Type == "video" {
