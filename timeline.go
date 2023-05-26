@@ -237,13 +237,17 @@ func (timeline *timeline) parseTweet(id string) *Tweet {
 
 				tw.Photos = append(tw.Photos, photo)
 			} else if media.Type == "animated_gif" {
-				video := Video{
-					ID:      media.IDStr,
-					Preview: media.MediaURLHttps,
-					URL:     media.VideoInfo.Variants[0].URL,
-				}
+				if len(media.VideoInfo.Variants) == 1 {
+					video := Video{
+						ID:      media.IDStr,
+						Preview: media.MediaURLHttps,
+						URL:     media.VideoInfo.Variants[0].URL,
+					}
 
-				tw.Videos = append(tw.Videos, video)
+					fmt.Println("animated_gif", video.URL)
+
+					tw.Videos = append(tw.Videos, video)
+				}
 			} else if media.Type == "video" {
 				video := Video{
 					ID:      media.IDStr,
