@@ -1,7 +1,6 @@
 package twitterscraper
 
 import (
-	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -229,12 +228,6 @@ func (timeline *timeline) parseTweet(id string) *Tweet {
 			})
 		}
 
-		s, err := json.MarshalIndent(tweet.ExtendedEntities, "", "\t")
-		if err == nil {
-			fmt.Printf("\n")
-			fmt.Println(string(s))
-			fmt.Printf("\n")
-		}
 		for _, media := range tweet.ExtendedEntities.Media {
 			if media.Type == "photo" {
 				photo := Photo{
@@ -244,7 +237,7 @@ func (timeline *timeline) parseTweet(id string) *Tweet {
 
 				tw.Photos = append(tw.Photos, photo)
 			} else if media.Type == "animated_gif" {
-				if len(media.VideoInfo.Variants) == 1 {
+				if len(media.VideoInfo.Variants) > 0 {
 					video := Video{
 						ID:      media.IDStr,
 						Preview: media.MediaURLHttps,
