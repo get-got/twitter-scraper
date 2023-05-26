@@ -229,9 +229,11 @@ func (timeline *timeline) parseTweet(id string) *Tweet {
 			})
 		}
 
-		s, err := json.MarshalIndent(tweet.ExtendedEntities.Media, "", "\t")
+		s, err := json.MarshalIndent(tweet.ExtendedEntities, "", "\t")
 		if err == nil {
+			fmt.Printf("\n")
 			fmt.Println(string(s))
+			fmt.Printf("\n")
 		}
 		for _, media := range tweet.ExtendedEntities.Media {
 			if media.Type == "photo" {
