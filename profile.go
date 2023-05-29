@@ -52,7 +52,9 @@ type user struct {
 // GetProfile return parsed user profile.
 func (s *Scraper) GetProfile(username string) (Profile, error) {
 	var jsn user
-	req, err := http.NewRequest("GET", "https://api.twitter.com/graphql/4S2ihIKfF3xhp-ENxvUAfQ/UserByScreenName?variables=%7B%22screen_name%22%3A%22"+username+"%22%2C%22withHighlightedLabel%22%3Atrue%7D", nil)
+	url := "https://api.twitter.com/graphql/4S2ihIKfF3xhp-ENxvUAfQ/UserByScreenName?variables=%7B%22screen_name%22%3A%22" + username + "%22%2C%22withHighlightedLabel%22%3Atrue%7D"
+	log.Println(url)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return Profile{}, err
 	}
