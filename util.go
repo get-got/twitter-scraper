@@ -157,7 +157,6 @@ func parseProfile(user legacyUser) Profile {
 		Avatar:         user.ProfileImageURLHTTPS,
 		Banner:         user.ProfileBannerURL,
 		Biography:      user.Description,
-		Color:          user.ProfileColor,
 		FollowersCount: user.FollowersCount,
 		FollowingCount: user.FavouritesCount,
 		FriendsCount:   user.FriendsCount,
