@@ -1,7 +1,9 @@
 package twitterscraper
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"sync"
 	"time"
@@ -71,6 +73,11 @@ func (s *Scraper) GetProfile(username string) (Profile, error) {
 
 	if jsn.Data.User.Legacy.ScreenName == "" {
 		return Profile{}, fmt.Errorf("either @%s does not exist or is private", username)
+	}
+
+	tmp, err := json.MarshalIndent(jsn, "", "\t")
+	if err == nil {
+		log.Println(string(tmp))
 	}
 
 	return parseProfile(jsn.Data.User.Legacy), nil
