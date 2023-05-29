@@ -16,6 +16,7 @@ type Profile struct {
 	Banner         string
 	Biography      string
 	Birthday       string
+	Color          string
 	FollowersCount int
 	FollowingCount int
 	FriendsCount   int

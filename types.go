@@ -86,6 +86,7 @@ type (
 		PinnedTweetIdsStr    []string `json:"pinned_tweet_ids_str"`
 		ProfileBannerURL     string   `json:"profile_banner_url"`
 		ProfileImageURLHTTPS string   `json:"profile_image_url_https"`
+		ProfileColor         string   `json:"profile_link_color"`
 		Protected            bool     `json:"protected"`
 		ScreenName           string   `json:"screen_name"`
 		StatusesCount        int      `json:"statuses_count"`
