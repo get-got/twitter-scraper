@@ -89,7 +89,7 @@ func (s *Scraper) getFlow(data map[string]interface{}) (*flow, error) {
 	headers := http.Header{
 		"Authorization":             []string{"Bearer " + s.bearerToken},
 		"Content-Type":              []string{"application/json"},
-		"User-Agent":                []string{s.userAgent},
+		"User-Agent":                []string{"TwitterAndroid/99"},
 		"X-Guest-Token":             []string{s.guestToken},
 		"X-Twitter-Auth-Type":       []string{"OAuth2Client"},
 		"X-Twitter-Active-User":     []string{"yes"},
