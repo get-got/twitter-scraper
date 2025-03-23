@@ -14,8 +14,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"math/rand"
 )
 
 const (
@@ -89,7 +87,7 @@ func (s *Scraper) getFlow(data map[string]interface{}) (*flow, error) {
 	headers := http.Header{
 		"Authorization":             []string{"Bearer " + s.bearerToken},
 		"Content-Type":              []string{"application/json"},
-		"User-Agent":                []string{"TwitterAndroid/99"},
+		"User-Agent":                []string{s.userAgent},
 		"X-Guest-Token":             []string{s.guestToken},
 		"X-Twitter-Auth-Type":       []string{"OAuth2Client"},
 		"X-Twitter-Active-User":     []string{"yes"},
@@ -168,8 +166,8 @@ func (s *Scraper) IsLoggedIn() bool {
 
 // randomDelay introduces a random delay between 1 and 3 seconds
 func randomDelay() {
-	delay := time.Duration(3000+rand.Intn(5000)) * time.Millisecond
-	time.Sleep(delay)
+	//delay := time.Duration(3000+rand.Intn(5000)) * time.Millisecond
+	time.Sleep(900)
 }
 
 // Login to Twitter
