@@ -167,7 +167,7 @@ func (s *Scraper) IsLoggedIn() bool {
 // randomDelay introduces a random delay between 1 and 3 seconds
 func randomDelay() {
 	//delay := time.Duration(3000+rand.Intn(5000)) * time.Millisecond
-	time.Sleep(900)
+	//time.Sleep(delay)
 }
 
 // Login to Twitter
