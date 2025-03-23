@@ -122,7 +122,7 @@ func (s *Scraper) getFlow(data map[string]interface{}) (*flow, error) {
 	return &info, nil
 }
 
-func (s *Scraper) getFlowToken(data map[string]interface{}) (string, error) {
+func (s *Scraper) getFlowToken(location string, data map[string]interface{}) (string, error) {
 	info, err := s.getFlow(data)
 	if err != nil {
 		return "", err
@@ -134,13 +134,13 @@ func (s *Scraper) getFlowToken(data map[string]interface{}) (string, error) {
 
 	if len(info.Subtasks) > 0 {
 		if info.Subtasks[0].SubtaskID == "LoginEnterAlternateIdentifierSubtask" {
-			err = fmt.Errorf("auth error: %v", "LoginEnterAlternateIdentifierSubtask")
+			err = fmt.Errorf("auth error (%s): %v", location, "LoginEnterAlternateIdentifierSubtask")
 		} else if info.Subtasks[0].SubtaskID == "LoginAcid" {
-			err = fmt.Errorf("auth error: %v", "LoginAcid")
+			err = fmt.Errorf("auth error (%s): %v", location, "LoginAcid")
 		} else if info.Subtasks[0].SubtaskID == "LoginTwoFactorAuthChallenge" {
-			err = fmt.Errorf("auth error: %v", "LoginTwoFactorAuthChallenge")
+			err = fmt.Errorf("auth error (%s): %v", location, "LoginTwoFactorAuthChallenge")
 		} else if info.Subtasks[0].SubtaskID == "DenyLoginSubtask" {
-			err = fmt.Errorf("auth error: %v", "DenyLoginSubtask")
+			err = fmt.Errorf("auth error (%s): %v", location, "DenyLoginSubtask")
 		}
 	}
 
@@ -206,7 +206,7 @@ func (s *Scraper) Login(credentials ...string) error {
 			},
 		},
 	}
-	flowToken, err := s.getFlowToken(data)
+	flowToken, err := s.getFlowToken("start", data)
 	if err != nil {
 		return err
 	}
@@ -223,7 +223,7 @@ func (s *Scraper) Login(credentials ...string) error {
 			},
 		},
 	}
-	flowToken, err = s.getFlowToken(data)
+	flowToken, err = s.getFlowToken("instr", data)
 	if err != nil {
 		return err
 	}
@@ -248,7 +248,7 @@ func (s *Scraper) Login(credentials ...string) error {
 			},
 		},
 	}
-	flowToken, err = s.getFlowToken(data)
+	flowToken, err = s.getFlowToken("username", data)
 	if err != nil {
 		return err
 	}
@@ -265,7 +265,7 @@ func (s *Scraper) Login(credentials ...string) error {
 			},
 		},
 	}
-	flowToken, err = s.getFlowToken(data)
+	flowToken, err = s.getFlowToken("password", data)
 	if err != nil {
 		return err
 	}
@@ -282,7 +282,7 @@ func (s *Scraper) Login(credentials ...string) error {
 			},
 		},
 	}
-	flowToken, err = s.getFlowToken(data)
+	flowToken, err = s.getFlowToken("duplication", data)
 	if err != nil {
 		var confirmationSubtask string
 		for _, subtask := range []string{"LoginAcid", "LoginTwoFactorAuthChallenge"} {
@@ -308,7 +308,7 @@ func (s *Scraper) Login(credentials ...string) error {
 					},
 				},
 			}
-			_, err = s.getFlowToken(data)
+			_, err = s.getFlowToken("confirmation", data)
 			if err != nil {
 				return err
 			}
@@ -345,7 +345,7 @@ func (s *Scraper) LoginOpenAccount() (OpenAccount, error) {
 			},
 		},
 	}
-	flowToken, err := s.getFlowToken(data)
+	flowToken, err := s.getFlowToken("guest", data)
 	if err != nil {
 		return OpenAccount{}, err
 	}
